@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, ProgressBar, Stack } from 'react-bootstrap'
 import { currencyFormatter } from '../utils'
 
-export default function BudgetCard({ name, amount, max, gray }) {
+export default function BudgetCard({ name, amount, max, gray, onAddExpenseClick }) {
 
     const classNames = [];
     // if below condition not given first, then gray background will overwrite the red background
@@ -32,7 +32,7 @@ export default function BudgetCard({ name, amount, max, gray }) {
                 now={amount}
             />
             <Stack direction="horizontal" gap="2" className="mt-4">
-                <Button variant="outline-primary" className="ms-auto">Add Expenses</Button>
+                <Button variant="outline-primary" className="ms-auto" onClick={onAddExpenseClick}>Add Expenses</Button>
                 <Button variant="outline-secondary">View Expensess</Button>
             </Stack>
         </Card.Body>
