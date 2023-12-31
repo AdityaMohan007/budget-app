@@ -17,13 +17,14 @@ export const BudgetsProvider = ({ children }) => {
     function getBudgetExpenses(budgetId) {
         return expenses.filter(expense => expense.budgetId === budgetId);
     }
-    function addExpense(description, amount, budgetId) {
+    function addExpense({ description, amount, budgetId }) {
         setExpenses(prevExpenses => {
             return [...prevExpenses, { id: uuidV4(), description, amount, budgetId }];
         })
     }
     // when adding budgets, return all previous budgets and we creating a new budget with new name, max value
-    function addBudget(name, max) {
+    // make sure to pass array inside addBudget function with braces
+    function addBudget({ name, max }) {
         setBudgets(prevBudgets => {
             // if budget with same name is created, new budget is not created and prev budgets are returned
             if (prevBudgets.find(budget => budget.name === name)) {
@@ -40,19 +41,22 @@ export const BudgetsProvider = ({ children }) => {
     }
     function deleteExpense({ id }) {
         setExpenses(prevExpenses => {
-            return prevExpenses.filter(budget => budget.id !== id);
+            return prevExpenses.filter(expense => expense.id !== id);
         })
     }
 
     return (
         <BudgetsContext.Provider value={{
-            budgets,
-            expenses,
-            getBudgetExpenses,
-            addExpense,
-            addBudget,
-            deleteBudget,
-            deleteExpense
-        }}>{children}</BudgetsContext.Provider>
+                budgets,
+                expenses,
+                getBudgetExpenses,
+                addExpense,
+                addBudget,
+                deleteBudget,
+                deleteExpense,
+            }}
+        >
+            {children}
+        </BudgetsContext.Provider>
     )
 }
