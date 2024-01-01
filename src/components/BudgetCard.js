@@ -8,6 +8,7 @@ export default function BudgetCard({
   max,
   gray,
   onAddExpenseClick,
+  hideButtons,
 }) {
   const classNames = [];
   // if below condition not given first, then gray background will overwrite the red background
@@ -40,6 +41,7 @@ export default function BudgetCard({
             now={amount}
           />
         )}
+        {!hideButtons && (
         <Stack direction="horizontal" gap="2" className="mt-4">
           <Button
             variant="outline-primary"
@@ -50,6 +52,7 @@ export default function BudgetCard({
           </Button>
           <Button variant="outline-secondary">View Expenses</Button>
         </Stack>
+        )}
       </Card.Body>
     </Card>
   );
