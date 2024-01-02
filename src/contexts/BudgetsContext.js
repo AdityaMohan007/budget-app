@@ -36,7 +36,15 @@ export const BudgetsProvider = ({ children }) => {
         })
     }
     function deleteBudget({ id }) {
-        // TODO: Deal with expenses
+        // If a budget is deleted and it contains some expenses, they should be moved to UNCATEGORIZED budget
+        setExpenses(prevExpenses => {
+            return prevExpenses.map(expense => {
+                if (expense.budgetId !== id) 
+                    return expense;
+                return { ... expense, budgetId: UNCATEGORIZED_BUDGET_ID};
+            });
+        });
+        // Delete budget
         setBudgets(prevBudgets => {
             return prevBudgets.filter(budget => budget.id !== id);
         })
